@@ -1,0 +1,522 @@
+/* ------------------------------------------------------------------
+   RA2 LAB
+   Referência de linguagem: janjanvanessche.com + layout Canva RA2
+------------------------------------------------------------------- */
+
+:root {
+  --red: #ff2401;      /* o vermelho da logo — toda a tipografia do site */
+  --red-hi: #ff7a63;   /* o mesmo vermelho clareado, para o hover */
+  --black: #000;
+  --white: #fff;
+
+  --ui-size: 10px;
+  --ui-track: 0.18em;
+  --ui-lead: 1.85;
+
+  --pad-x: 3.2vw;
+  --pad-y: 3.2vh;
+
+  --fade: 480ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  min-height: 100dvh;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color var(--fade) var(--ease), color var(--fade) var(--ease);
+  overflow-x: hidden;
+}
+
+/* O fundo muda de página para página; a tipografia é sempre o vermelho RA2. */
+body[data-theme="dark"]  { --bg: var(--black); --fg: var(--red); --fg-hi: var(--red-hi); }
+body[data-theme="light"] { --bg: var(--white); --fg: var(--red); --fg-hi: var(--red-hi); }
+
+img { display: block; max-width: 100%; }
+
+/* Interação: ao passar o mouse, o vermelho clareia. */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 240ms var(--ease), opacity 240ms var(--ease);
+}
+a:hover { color: var(--fg-hi); }
+
+::selection { background: var(--red); color: var(--white); }
+
+/* O contorno azul padrão do navegador não combina com o site. Some ao
+   clicar com o mouse, mas continua aparecendo — em vermelho — para quem
+   navega pelo teclado, que precisa dele para se localizar. */
+:focus { outline: none; }
+:focus-visible {
+  outline: 1px solid var(--fg);
+  outline-offset: 4px;
+}
+
+/* --- utilitário tipográfico da UI ------------------------------- */
+
+.brand,
+.menu a,
+.util,
+.meta,
+.back,
+.index-list a,
+.page-title {
+  font-size: var(--ui-size);
+  letter-spacing: var(--ui-track);
+  text-transform: uppercase;
+  line-height: var(--ui-lead);
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------------------
+   Palco: slideshow de fundo em fullbleed
+------------------------------------------------------------------- */
+
+.stage,
+.stage-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stage { background: var(--black); }
+
+.stage .slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2400ms var(--ease);
+  will-change: opacity;
+}
+.stage .slide.is-active { opacity: 1; }
+
+/* fallback quando a foto ainda não foi adicionada */
+.stage .slide.is-missing {
+  background-image: radial-gradient(120% 90% at 62% 45%, #ff5a2b 0%, var(--red) 38%, #7a1004 78%, #240401 100%);
+}
+
+/* Escurece o suficiente para o texto branco sobreviver a qualquer foto.
+   Os dois primeiros gradientes miram exatamente os cantos onde mora o
+   chrome (menu embaixo à esquerda, controles em cima à direita), para não
+   precisar apagar a imagem inteira. */
+.stage-veil {
+  background:
+    radial-gradient(ellipse 46% 36% at 100% 0%, rgba(0,0,0,0.76), transparent 74%),
+    radial-gradient(ellipse 46% 40% at 0% 100%, rgba(0,0,0,0.80), transparent 74%),
+    /* nas páginas internas o menu sobe para o alto à esquerda */
+    radial-gradient(ellipse 44% 34% at 0% 0%, rgba(0,0,0,0.70), transparent 74%),
+    linear-gradient(180deg, rgba(0,0,0,0.34) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.42) 100%),
+    linear-gradient(90deg, rgba(0,0,0,0.3) 0%, transparent 40%);
+}
+
+body[data-stage="off"] .stage,
+body[data-stage="off"] .stage-veil { opacity: 0; transition: opacity var(--fade) var(--ease); }
+
+/* ------------------------------------------------------------------
+   Chrome fixo (nav + utilitários)
+------------------------------------------------------------------- */
+
+.chrome {
+  position: fixed;
+  z-index: 20;
+}
+
+/* o chrome flutua sobre fotos: um halo na cor do tema garante leitura */
+body[data-theme="dark"] .chrome {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 34px rgba(0, 0, 0, 0.65);
+}
+body[data-theme="light"] .chrome {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 34px rgba(255, 255, 255, 0.75);
+}
+
+.chrome--utils {
+  top: var(--pad-y);
+  right: var(--pad-x);
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.util {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 240ms var(--ease), opacity 240ms var(--ease);
+}
+.util:hover { color: var(--fg-hi); }
+
+/* --- seletor de idioma PT / EN ----------------------------------- */
+
+.lang {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+  margin-bottom: 1.9em;
+}
+
+.lang .util { opacity: 0.5; }
+.lang .util:hover { opacity: 1; color: var(--fg-hi); }
+.lang .util[aria-current="true"] {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lang-sep {
+  font-size: var(--ui-size);
+  letter-spacing: var(--ui-track);
+  opacity: 0.3;
+}
+
+.chrome--nav {
+  left: var(--pad-x);
+  transition: top var(--fade) var(--ease), bottom var(--fade) var(--ease);
+}
+
+body[data-nav="bottom"] .chrome--nav { bottom: var(--pad-y); top: auto; }
+body[data-nav="top"]    .chrome--nav { top: var(--pad-y); bottom: auto; }
+
+.brand { display: block; margin-bottom: 1.9em; }
+
+.menu { list-style: none; }
+.menu a[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Retorno ao passar o mouse: o item clareia e ganha sublinhado. */
+.menu a:hover,
+.group-t:hover {
+  color: var(--fg-hi);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ...e a foto de fundo dá uma leve iluminada, para a interação
+   ser sentida na tela inteira e não só na palavra. */
+.stage {
+  transition: filter 320ms var(--ease);
+}
+body.is-nav-hover .stage { filter: brightness(1.16); }
+
+/* nas páginas sem foto, quem responde é o próprio fundo */
+.view { transition: opacity 520ms var(--ease), background-color 320ms var(--ease); }
+body[data-stage="off"].is-nav-hover .view { background: rgba(255, 36, 1, 0.045); }
+
+/* --- submenus expansíveis (RUNWAY / ARCHIVES) -------------------- */
+
+.group-t {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  font-size: var(--ui-size);
+  letter-spacing: var(--ui-track);
+  line-height: var(--ui-lead);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 240ms var(--ease);
+}
+.group-t:hover { color: var(--fg-hi); }
+.group.is-open > .group-t { text-decoration: underline; text-underline-offset: 3px; }
+
+/* a animação de altura usa grid-template-rows 0fr → 1fr */
+.sub-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms var(--ease);
+}
+.group.is-open > .sub-wrap { grid-template-rows: 1fr; }
+
+.sub {
+  list-style: none;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sub a {
+  display: grid;
+  grid-template-columns: 1.9em auto;
+  column-gap: 0.9em;
+  padding-left: 0.2em;
+  font-size: var(--ui-size);
+  letter-spacing: var(--ui-track);
+  line-height: var(--ui-lead);
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+.sub a:hover {
+  opacity: 1;
+  color: var(--fg-hi);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sub a[aria-current="page"] { opacity: 1; }
+.sub .idx { opacity: 0.6; }
+.sub .yr { opacity: 0.5; }
+
+/* ------------------------------------------------------------------
+   Views
+------------------------------------------------------------------- */
+
+.view {
+  position: relative;
+  z-index: 10;
+  min-height: 100dvh;
+  opacity: 0;
+  transition: opacity 520ms var(--ease);
+}
+.view.is-ready { opacity: 1; }
+
+/* --- HOME -------------------------------------------------------- */
+
+.home { min-height: 100dvh; }
+
+/* --- páginas com scroll ----------------------------------------- */
+
+.page {
+  /* o piso em px impede que o conteúdo suba por baixo do menu fixo */
+  padding: max(22vh, 210px) var(--pad-x) 18vh;
+}
+
+.page-head {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 1.5vw;
+  margin-bottom: 12vh;
+}
+
+.page-title { grid-column: 5 / span 4; }
+
+.back {
+  grid-column: 1 / span 2;
+  align-self: start;
+}
+.back::before { content: "← "; }
+
+.page-lede {
+  grid-column: 5 / span 5;
+  font-size: 10px;
+  line-height: 1.9;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: justify;
+  margin-top: 2.4em;
+  opacity: 0.82;
+}
+
+.page-year {
+  grid-column: 11 / span 2;
+  align-self: start;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+/* --- índice de coleções (LAB) ------------------------------------ */
+
+.index-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 1.5vw;
+}
+
+.index-list li { grid-column: 5 / span 5; margin-bottom: 0.15em; }
+
+.index-list a {
+  display: grid;
+  grid-template-columns: 3em 1fr 4em;
+  gap: 1.4em;
+}
+.index-list .idx { opacity: 0.45; }
+.index-list .yr { opacity: 0.45; text-align: right; }
+.index-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.index-list a:hover .idx,
+.index-list a:hover .yr { opacity: 0.8; }
+
+/* --- grade editorial dispersa ------------------------------------ */
+
+.scatter {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 9vh 1.5vw;
+  align-items: start;
+}
+
+/* A entrada (subir e aparecer) fica na <figure>, para o transform da
+   imagem ficar livre para o zoom do hover. */
+.scatter figure {
+  position: relative;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1100ms var(--ease), transform 1100ms var(--ease);
+}
+.scatter figure.is-in { opacity: 1; transform: none; }
+
+/* o recorte segura o zoom dentro do quadro da foto */
+.scatter figure .frame {
+  overflow: hidden;
+  display: block;
+}
+
+.scatter figure img,
+.scatter figure .ph {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 700ms var(--ease), filter 420ms var(--ease);
+}
+
+/* Interação nas fotos: clareia e aproxima de leve, como o menu.
+   Só onde existe mouse — no toque, :hover fica grudado. */
+@media (hover: hover) {
+  .scatter figure:hover img,
+  .scatter figure:hover .ph {
+    transform: scale(1.035);
+    filter: brightness(1.14);
+  }
+  .scatter figure:hover figcaption { opacity: 1; }
+}
+
+.scatter figcaption {
+  margin-top: 0.9em;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  transition: opacity 320ms var(--ease);
+}
+
+/* bloco de texto dentro da grade */
+.scatter .note {
+  font-size: 10px;
+  line-height: 1.9;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: justify;
+  opacity: 0.82;
+}
+.scatter .note p + p { margin-top: 1.4em; }
+
+/* placeholder enquanto a imagem real não existe */
+.ph {
+  position: relative;
+  width: 100%;
+  background: radial-gradient(120% 100% at 60% 40%, #ff5a2b 0%, var(--red) 40%, #7a1004 80%, #240401 100%);
+}
+.ph::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 0.9em;
+  bottom: 0.8em;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+/* --- CONTATO ----------------------------------------------------- */
+
+.contact {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-content: start;
+  padding: max(22vh, 210px) var(--pad-x) 12vh;
+  gap: 0 1.5vw;
+}
+
+/* O contato fica sobre foto. O vermelho tem menos contraste que o branco,
+   então além do halo a faixa da esquerda — onde moram o menu e os dados —
+   ganha um escurecimento próprio, que se dissolve antes do meio da tela. */
+.contact { text-shadow: 0 0 10px rgba(0,0,0,0.92), 0 0 34px rgba(0,0,0,0.7); }
+
+.contact::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(0,0,0,0.88) 0%,
+    rgba(0,0,0,0.72) 34%,
+    rgba(0,0,0,0.28) 55%,
+    transparent 70%
+  );
+}
+
+.contact h1 {
+  grid-column: 1 / span 3;
+  font-size: var(--ui-size);
+  font-weight: 400;
+  letter-spacing: var(--ui-track);
+  text-transform: uppercase;
+}
+
+.contact .block {
+  grid-column: 5 / span 4;
+  font-size: var(--ui-size);
+  letter-spacing: var(--ui-track);
+  text-transform: uppercase;
+  line-height: var(--ui-lead);
+}
+.contact .block + .block { margin-top: 3.2em; }
+
+.contact .block .k { opacity: 0.6; }
+
+.contact .cta {
+  display: inline-block;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.25em;
+}
+
+/* ------------------------------------------------------------------
+   Responsivo
+------------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  :root { --pad-x: 6vw; --pad-y: 3vh; }
+
+  .page { padding: max(16vh, 175px) var(--pad-x) 14vh; }
+
+  .page-head { display: block; margin-bottom: 8vh; }
+
+  .index-list { display: block; }
+  .index-list li { margin-bottom: 0.6em; }
+  .back { display: block; margin-bottom: 3.2em; }
+  .page-lede { margin-top: 2em; }
+
+  .scatter { display: block; }
+  .scatter > * { margin-bottom: 7vh; }
+  .scatter figure { width: 100% !important; margin-left: 0 !important; margin-top: 0 !important; }
+
+  .contact { display: block; padding-top: max(18vh, 175px); }
+  .contact h1 { margin-bottom: 4em; }
+  .contact .block { margin-top: 2.6em; }
+
+  body[data-nav="bottom"] .chrome--nav { bottom: var(--pad-y); }
+  .brand { margin-bottom: 1.2em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .scatter figure { opacity: 1; transform: none; }
+}

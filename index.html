@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RA2</title>
+<meta name="description" content="RA2 — laboratório especializado em alfaiataria e malharia avant-garde. São Paulo.">
+
+<meta property="og:title" content="RA2 — LAB">
+<meta property="og:description" content="Laboratório especializado em alfaiataria e malharia avant-garde.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/home/01.jpg">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-theme="dark" data-nav="bottom">
+
+  <!-- fundo persistente (slideshow com fading) -->
+  <div class="stage" id="stage" aria-hidden="true"></div>
+  <div class="stage-veil" id="stageVeil" aria-hidden="true"></div>
+
+  <!-- conteúdo por rota -->
+  <main class="view" id="view"></main>
+
+  <!-- chrome fixo -->
+  <!-- o menu é montado por app.js (bilíngue) a partir de content.js -->
+  <nav class="chrome chrome--nav" id="nav"></nav>
+
+  <div class="chrome chrome--utils">
+    <div class="lang">
+      <button type="button" class="util" data-lang="pt">PT</button>
+      <span class="lang-sep">/</span>
+      <button type="button" class="util" data-lang="en">EN</button>
+    </div>
+    <button type="button" id="audioBtn" class="util" aria-pressed="false">SOM DESLIGADO</button>
+    <button type="button" id="fsBtn" class="util">TELA CHEIA</button>
+  </div>
+
+  <audio id="ambient" loop preload="none" src="assets/audio/ambient.m4a"></audio>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
