@@ -184,9 +184,33 @@ window.RA2 = {
       title: "SHADOWS",
       year: "AW25",
       theme: "dark",
-      /* TODO: texto e fotos */
+      /* TODO: texto do lookbook */
       lede: "",
-      pieces: grade6("lookbook/shadows")
+      /* 20 fotos, na ordem dos arquivos originais (RA2_LOOKBOOK16543 → 18291).
+         As três em movimento (07–09) e os dois closes de capuz (15–16)
+         ganham mais espaço para quebrar o ritmo dos looks de corpo inteiro. */
+      pieces: [
+        { img: "assets/img/lookbook/shadows/01.jpg", col: 2,  span: 3, top: 0,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/02.jpg", col: 6,  span: 3, top: 14, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/03.jpg", col: 10, span: 3, top: 4,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/04.jpg", col: 1,  span: 4, top: 8,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/05.jpg", col: 7,  span: 3, top: 20, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/06.jpg", col: 3,  span: 3, top: 2,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/07.jpg", col: 7,  span: 5, top: 6,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/08.jpg", col: 1,  span: 5, top: 10, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/09.jpg", col: 7,  span: 5, top: 18, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/10.jpg", col: 2,  span: 3, top: 4,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/11.jpg", col: 6,  span: 3, top: 16, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/12.jpg", col: 10, span: 3, top: 0,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/13.jpg", col: 1,  span: 4, top: 10, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/14.jpg", col: 7,  span: 4, top: 2,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/15.jpg", col: 2,  span: 5, top: 8,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/16.jpg", col: 8,  span: 5, top: 22, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/17.jpg", col: 1,  span: 3, top: 6,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/18.jpg", col: 5,  span: 4, top: 0,  ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/19.jpg", col: 10, span: 3, top: 14, ratio: "2/3" },
+        { img: "assets/img/lookbook/shadows/20.jpg", col: 4,  span: 4, top: 6,  ratio: "2/3" }
+      ]
     },
     {
       slug: "daylight",
