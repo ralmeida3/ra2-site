@@ -180,6 +180,24 @@ window.RA2 = {
   /* --- LOOKBOOK --------------------------------------------------- */
   lookbooks: [
     {
+      slug: "polo",
+      title: "POLO",
+      year: "AW26",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("lookbook/polo")
+    },
+    {
+      slug: "daylight",
+      title: "DAYLIGHT",
+      year: "SS26",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("lookbook/daylight")
+    },
+    {
       slug: "shadows",
       title: "SHADOWS",
       year: "AW25",
@@ -211,24 +229,6 @@ window.RA2 = {
         { img: "assets/img/lookbook/shadows/19.jpg", col: 10, span: 3, top: 14, ratio: "2/3" },
         { img: "assets/img/lookbook/shadows/20.jpg", col: 4,  span: 4, top: 6,  ratio: "2/3" }
       ]
-    },
-    {
-      slug: "daylight",
-      title: "DAYLIGHT",
-      year: "SS26",
-      theme: "dark",
-      /* TODO: texto e fotos */
-      lede: "",
-      pieces: grade6("lookbook/daylight")
-    },
-    {
-      slug: "polo",
-      title: "POLO",
-      year: "AW26",
-      theme: "dark",
-      /* TODO: texto e fotos */
-      lede: "",
-      pieces: grade6("lookbook/polo")
     }
   ],
 
