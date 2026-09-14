@@ -3,19 +3,34 @@
    Este é o único arquivo que você precisa editar no dia a dia.
 
    TEXTOS BILÍNGUES
-   Todo texto que aparece na tela é um objeto { pt: "...", en: "..." }.
+   Todo texto que aparece na tela pode ser um objeto { pt: "...", en: "..." }.
    Se o inglês faltar, o site cai no português automaticamente.
 
    As fotos vivem em:
-     assets/img/desfile/                        → RUNWAY
-     assets/img/campanhas/<campanha>/           → ARCHIVES
-     assets/img/studio/                         → THE STUDIO
+     assets/img/desfiles/<desfile>/             → DESFILES
+     assets/img/lookbook/<lookbook>/            → LOOKBOOK
+     assets/img/campanhas/<campanha>/           → ARQUIVO
+     assets/img/studio/                         → O STUDIO
      assets/img/conteudos/                      → fundos da home e do contato
 
    Sobre `col` e `span`: a página usa uma grade de 12 colunas.
    `col` = coluna onde a peça começa (1 a 12), `span` = quantas ocupa.
    `top` = deslocamento vertical em vh, para o efeito "espalhado".
 ------------------------------------------------------------------- */
+
+/* Grade padrão de 6 fotos espalhadas, usada enquanto uma página ainda não
+   tem layout próprio. Basta colocar 01.jpg … 06.jpg na pasta indicada. */
+function grade6(pasta) {
+  var p = "assets/img/" + pasta + "/";
+  return [
+    { img: p + "01.jpg", col: 2, span: 4, top: 0,  ratio: "4/5" },
+    { img: p + "02.jpg", col: 7, span: 4, top: 18, ratio: "4/5" },
+    { img: p + "03.jpg", col: 1, span: 5, top: 6,  ratio: "4/5" },
+    { img: p + "04.jpg", col: 8, span: 4, top: 0,  ratio: "4/5" },
+    { img: p + "05.jpg", col: 3, span: 5, top: 10, ratio: "4/5" },
+    { img: p + "06.jpg", col: 9, span: 3, top: 4,  ratio: "4/5" }
+  ];
+}
 
 window.RA2 = {
 
@@ -60,23 +75,7 @@ window.RA2 = {
     }
   },
 
-  /* --- LOOKBOOK ---------------------------------------------------
-     Aguardando as fotos em assets/img/lookbook/ (01.jpg … 06.jpg). */
-  lookbook: {
-    theme: "dark",
-    /* TODO: texto do lookbook — trocar pelo real */
-    lede: { pt: "", en: "" },
-    pieces: [
-      { img: "assets/img/lookbook/01.jpg", col: 2,  span: 4, top: 0,  ratio: "4/5" },
-      { img: "assets/img/lookbook/02.jpg", col: 7,  span: 4, top: 18, ratio: "4/5" },
-      { img: "assets/img/lookbook/03.jpg", col: 1,  span: 5, top: 6,  ratio: "4/5" },
-      { img: "assets/img/lookbook/04.jpg", col: 8,  span: 4, top: 0,  ratio: "4/5" },
-      { img: "assets/img/lookbook/05.jpg", col: 3,  span: 5, top: 10, ratio: "4/5" },
-      { img: "assets/img/lookbook/06.jpg", col: 9,  span: 3, top: 4,  ratio: "4/5" }
-    ]
-  },
-
-  /* --- THE STUDIO ------------------------------------------------- */
+  /* --- O STUDIO --------------------------------------------------- */
   studio: {
     theme: "light",
     lede: {
@@ -111,13 +110,13 @@ window.RA2 = {
     ]
   },
 
-  /* --- RUNWAY: desfiles ------------------------------------------- */
+  /* --- DESFILES ---------------------------------------------------
+     A ordem aqui é a ordem do menu. `year` aparece entre parênteses. */
   collections: [
     {
       slug: "raizes",
-      idx: "01",
       title: "RAÍZES",
-      year: { pt: "S/S 2027", en: "S/S 2027" },
+      year: "SS27",
       theme: "dark",
       lede: {
         pt:
@@ -130,8 +129,8 @@ window.RA2 = {
           "slouched knitwear, layers that hide the structure instead of displaying it."
       },
       pieces: [
-        { img: "assets/img/desfile/01.jpg", col: 2,  span: 3, top: 0,  ratio: "4/5", caption: "Look 01" },
-        { img: "assets/img/desfile/02.jpg", col: 6,  span: 3, top: 16, ratio: "4/5", caption: "Look 02" },
+        { img: "assets/img/desfiles/raizes/01.jpg", col: 2,  span: 3, top: 0,  ratio: "4/5", caption: "Look 01" },
+        { img: "assets/img/desfiles/raizes/02.jpg", col: 6,  span: 3, top: 16, ratio: "4/5", caption: "Look 02" },
         { note: {
             pt: [
               "A coleção trabalha uma paleta curta — linho cru, cinza, marinho e preto — para que a leitura " +
@@ -146,58 +145,88 @@ window.RA2 = {
               "that drag. The tailoring is still there, but taken apart."
             ]
           }, col: 10, span: 3, top: 2 },
-        { img: "assets/img/desfile/03.jpg", col: 1,  span: 5, top: 4,  ratio: "4/5", caption: "Look 03" },
-        { img: "assets/img/desfile/04.jpg", col: 7,  span: 4, top: 22, ratio: "4/5", caption: "Look 04" },
-        { img: "assets/img/desfile/05.jpg", col: 3,  span: 4, top: 0,  ratio: "4/5", caption: "Look 05" },
-        { img: "assets/img/desfile/06.jpg", col: 9,  span: 3, top: 10, ratio: "4/5", caption: "Look 06" },
-        { img: "assets/img/desfile/07.jpg", col: 2,  span: 4, top: 6,  ratio: "4/5", caption: "Look 07" },
-        { img: "assets/img/desfile/08.jpg", col: 7,  span: 5, top: 0,  ratio: "4/5", caption: "Look 08" },
-        { img: "assets/img/desfile/09.jpg", col: 1,  span: 3, top: 14, ratio: "4/5", caption: "Look 09" },
-        { img: "assets/img/desfile/10.jpg", col: 5,  span: 4, top: 2,  ratio: "4/5", caption: "Look 10" },
-        { img: "assets/img/desfile/11.jpg", col: 10, span: 3, top: 20, ratio: "4/5", caption: "Look 11" },
-        { img: "assets/img/desfile/12.jpg", col: 3,  span: 5, top: 4,  ratio: "4/5", caption: "Look 12" }
-      ]
-    }
-    /* Para adicionar o próximo desfile, copie o bloco acima,
-       troque slug/idx/title/year e aponte as fotos para
-       assets/img/<nova-pasta>/ */
-  ],
-
-  /* --- ARCHIVES: campanhas ---------------------------------------- */
-  campaigns: [
-    {
-      slug: "polo",
-      idx: "01",
-      title: "POLO",
-      year: { pt: "CAMPANHA", en: "CAMPAIGN" },
-      theme: "dark",
-      /* TODO: texto da campanha — trocar pelo real */
-      lede: { pt: "", en: "" },
-      pieces: [
-        { img: "assets/img/campanhas/polo/01.jpg", col: 2, span: 4, top: 0,  ratio: "4/5" },
-        { img: "assets/img/campanhas/polo/02.jpg", col: 7, span: 4, top: 18, ratio: "4/5" },
-        { img: "assets/img/campanhas/polo/03.jpg", col: 1, span: 5, top: 6,  ratio: "4/5" },
-        { img: "assets/img/campanhas/polo/04.jpg", col: 8, span: 4, top: 0,  ratio: "4/5" },
-        { img: "assets/img/campanhas/polo/05.jpg", col: 3, span: 5, top: 10, ratio: "4/5" },
-        { img: "assets/img/campanhas/polo/06.jpg", col: 9, span: 3, top: 4,  ratio: "4/5" }
+        { img: "assets/img/desfiles/raizes/03.jpg", col: 1,  span: 5, top: 4,  ratio: "4/5", caption: "Look 03" },
+        { img: "assets/img/desfiles/raizes/04.jpg", col: 7,  span: 4, top: 22, ratio: "4/5", caption: "Look 04" },
+        { img: "assets/img/desfiles/raizes/05.jpg", col: 3,  span: 4, top: 0,  ratio: "4/5", caption: "Look 05" },
+        { img: "assets/img/desfiles/raizes/06.jpg", col: 9,  span: 3, top: 10, ratio: "4/5", caption: "Look 06" },
+        { img: "assets/img/desfiles/raizes/07.jpg", col: 2,  span: 4, top: 6,  ratio: "4/5", caption: "Look 07" },
+        { img: "assets/img/desfiles/raizes/08.jpg", col: 7,  span: 5, top: 0,  ratio: "4/5", caption: "Look 08" },
+        { img: "assets/img/desfiles/raizes/09.jpg", col: 1,  span: 3, top: 14, ratio: "4/5", caption: "Look 09" },
+        { img: "assets/img/desfiles/raizes/10.jpg", col: 5,  span: 4, top: 2,  ratio: "4/5", caption: "Look 10" },
+        { img: "assets/img/desfiles/raizes/11.jpg", col: 10, span: 3, top: 20, ratio: "4/5", caption: "Look 11" },
+        { img: "assets/img/desfiles/raizes/12.jpg", col: 3,  span: 5, top: 4,  ratio: "4/5", caption: "Look 12" }
       ]
     },
     {
-      slug: "selecao-brasileira",
-      idx: "02",
-      title: "SELEÇÃO BRASILEIRA",
-      year: { pt: "", en: "" },
+      slug: "leveza",
+      title: "LEVEZA",
+      year: "SS26",
       theme: "dark",
-      /* TODO: texto da campanha — trocar pelo real */
-      lede: { pt: "", en: "" },
-      pieces: [
-        { img: "assets/img/campanhas/selecao-brasileira/01.jpg", col: 1, span: 5, top: 0,  ratio: "4/5" },
-        { img: "assets/img/campanhas/selecao-brasileira/02.jpg", col: 7, span: 4, top: 16, ratio: "4/5" },
-        { img: "assets/img/campanhas/selecao-brasileira/03.jpg", col: 2, span: 4, top: 8,  ratio: "4/5" },
-        { img: "assets/img/campanhas/selecao-brasileira/04.jpg", col: 8, span: 4, top: 0,  ratio: "4/5" },
-        { img: "assets/img/campanhas/selecao-brasileira/05.jpg", col: 3, span: 5, top: 12, ratio: "4/5" },
-        { img: "assets/img/campanhas/selecao-brasileira/06.jpg", col: 9, span: 3, top: 2,  ratio: "4/5" }
-      ]
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("desfiles/leveza")
+    },
+    {
+      slug: "40-mais-1",
+      title: "40+1",
+      year: "AW25",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("desfiles/40-mais-1")
+    }
+  ],
+
+  /* --- LOOKBOOK --------------------------------------------------- */
+  lookbooks: [
+    {
+      slug: "shadows",
+      title: "SHADOWS",
+      year: "AW25",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("lookbook/shadows")
+    },
+    {
+      slug: "daylight",
+      title: "DAYLIGHT",
+      year: "SS26",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("lookbook/daylight")
+    },
+    {
+      slug: "polo",
+      title: "POLO",
+      year: "AW26",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("lookbook/polo")
+    }
+  ],
+
+  /* --- ARQUIVO: campanhas ----------------------------------------- */
+  campaigns: [
+    {
+      slug: "polo",
+      title: { pt: "POLO CAMPANHA", en: "POLO CAMPAIGN" },
+      year: "",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("campanhas/polo")
+    },
+    {
+      slug: "selecao-brasileira",
+      title: "SELEÇÃO BRASILEIRA",
+      year: "",
+      theme: "dark",
+      /* TODO: texto e fotos */
+      lede: "",
+      pieces: grade6("campanhas/selecao-brasileira")
     }
   ]
 };

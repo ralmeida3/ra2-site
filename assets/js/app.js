@@ -17,6 +17,10 @@
       label: { pt: "DESFILES", en: "RUNWAY" },
       items: C.collections
     },
+    lookbook: {
+      label: { pt: "LOOKBOOK", en: "LOOKBOOK" },
+      items: C.lookbooks
+    },
     archives: {
       label: { pt: "ARQUIVO", en: "ARCHIVES" },
       items: C.campaigns
@@ -25,7 +29,6 @@
 
   /* legendas da interface */
   var UI = {
-    navLookbook: { pt: "LOOKBOOK",          en: "LOOKBOOK" },
     navStudio:  { pt: "O STUDIO",           en: "THE STUDIO" },
     navContact: { pt: "CONTATO",            en: "CONTACT" },
     audioOff:  { pt: "SOM DESLIGADO",       en: "AUDIO OFF" },
@@ -86,10 +89,8 @@
       return (
         "<li>" +
           '<a href="#/' + key + "/" + esc(it.slug) + '" data-item="' + esc(it.slug) + '">' +
-            '<span class="idx">' + esc(it.idx) + ".</span>" +
-            "<span>" + esc(it.title) +
-              (yr ? ' <span class="yr">(' + esc(yr) + ")</span>" : "") +
-            "</span>" +
+            esc(t(it.title)) +
+            (yr ? ' <span class="yr">(' + esc(yr) + ")</span>" : "") +
           "</a>" +
         "</li>"
       );
@@ -114,7 +115,7 @@
       '<a class="brand" href="#/">RA2</a>' +
       '<ul class="menu">' +
         groupHTML("runway") +
-        '<li><a href="#/lookbook" data-route="lookbook">' + esc(t(UI.navLookbook)) + "</a></li>" +
+        groupHTML("lookbook") +
         groupHTML("archives") +
         '<li><a href="#/studio" data-route="studio">' + esc(t(UI.navStudio)) + "</a></li>" +
         '<li><a href="#/contato" data-route="contato">' + esc(t(UI.navContact)) + "</a></li>" +
@@ -313,7 +314,7 @@
     return (
       '<section class="page">' +
         '<div class="page-head">' +
-          '<h1 class="page-title">' + esc(entry.title) + "</h1>" +
+          '<h1 class="page-title">' + esc(t(entry.title)) + "</h1>" +
           (lede ? '<p class="page-lede">' + esc(lede) + "</p>" : "") +
           (year ? '<span class="page-year">' + esc(year) + "</span>" : "") +
         "</div>" +
@@ -328,12 +329,12 @@
     body.dataset.nav = "top";
     setStage(null);
 
-    var items = s.items.map(function (c) {
+    var items = s.items.map(function (c, i) {
       return (
         "<li>" +
           '<a href="#/' + key + "/" + esc(c.slug) + '">' +
-            '<span class="idx">' + esc(c.idx) + ".</span>" +
-            "<span>" + esc(c.title) + "</span>" +
+            '<span class="idx">' + String(i + 1).padStart(2, "0") + ".</span>" +
+            "<span>" + esc(t(c.title)) + "</span>" +
             '<span class="yr">' + esc(t(c.year)) + "</span>" +
           "</a>" +
         "</li>"
@@ -355,24 +356,6 @@
       body.dataset.nav = "bottom";
       setStage(C.home);
       return '<section class="home"></section>';
-    },
-
-    lookbook: function () {
-      var s = C.lookbook;
-      body.dataset.theme = s.theme || "dark";
-      body.dataset.nav = "top";
-      setStage(null);
-
-      var lede = t(s.lede);
-      return (
-        '<section class="page">' +
-          '<div class="page-head">' +
-            '<h1 class="page-title">' + esc(t(UI.navLookbook)) + "</h1>" +
-            (lede ? '<p class="page-lede">' + esc(lede) + "</p>" : "") +
-          "</div>" +
-          scatterHTML(s.pieces) +
-        "</section>"
-      );
     },
 
     studio: function () {

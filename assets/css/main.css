@@ -246,11 +246,12 @@ body[data-stage="off"].is-nav-hover .view { background: rgba(255, 36, 1, 0.045);
   overflow: hidden;
 }
 
+/* respiro depois de uma lista aberta, antes da próxima seção */
+.group.is-open > .sub-wrap > .sub { padding-bottom: 0.9em; }
+
 .sub a {
-  display: grid;
-  grid-template-columns: 1.9em auto;
-  column-gap: 0.9em;
-  padding-left: 0.2em;
+  display: block;
+  padding-left: 2.2em;   /* recuo dos itens em relação ao título da seção */
   font-size: var(--ui-size);
   letter-spacing: var(--ui-track);
   line-height: var(--ui-lead);
@@ -264,8 +265,6 @@ body[data-stage="off"].is-nav-hover .view { background: rgba(255, 36, 1, 0.045);
   text-underline-offset: 3px;
 }
 .sub a[aria-current="page"] { opacity: 1; }
-.sub .idx { opacity: 0.6; }
-.sub .yr { opacity: 0.5; }
 
 /* ------------------------------------------------------------------
    Views

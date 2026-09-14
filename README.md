@@ -31,12 +31,16 @@ esperado escrito nele. Basta salvar o arquivo naquele caminho e recarregar.
 
 | Pasta | Onde aparece | Situação |
 |---|---|---|
-| `assets/img/conteudos/` | `01`–`08` no slideshow da home; `09`–`10` no fundo do contato | ✅ pronto |
-| `assets/img/desfile/` | DESFILES → "Raízes" — `01.jpg` a `12.jpg`, um por look | ✅ pronto |
-| `assets/img/lookbook/` | LOOKBOOK — `01.jpg` a `06.jpg` | falta |
-| `assets/img/campanhas/polo/` | ARCHIVES → Polo — `01.jpg` a `06.jpg` | falta |
-| `assets/img/campanhas/selecao-brasileira/` | ARCHIVES → Seleção Brasileira — `01.jpg` a `06.jpg` | falta |
-| `assets/img/studio/` | Página The Studio — `01.jpg` a `05.jpg` | falta |
+| `assets/img/conteudos/` | `01`–`09` no slideshow da home; o contato reaproveita `02` e `03` | ✅ pronto |
+| `assets/img/desfiles/raizes/` | DESFILES → Raízes (SS27) — `01.jpg` a `12.jpg`, um por look | ✅ pronto |
+| `assets/img/desfiles/leveza/` | DESFILES → Leveza (SS26) — `01.jpg` a `06.jpg` | falta |
+| `assets/img/desfiles/40-mais-1/` | DESFILES → 40+1 (AW25) — `01.jpg` a `06.jpg` | falta |
+| `assets/img/lookbook/shadows/` | LOOKBOOK → Shadows (AW25) — `01.jpg` a `06.jpg` | falta |
+| `assets/img/lookbook/daylight/` | LOOKBOOK → Daylight (SS26) — `01.jpg` a `06.jpg` | falta |
+| `assets/img/lookbook/polo/` | LOOKBOOK → Polo (AW26) — `01.jpg` a `06.jpg` | falta |
+| `assets/img/campanhas/polo/` | ARQUIVO → Polo Campanha — `01.jpg` a `06.jpg` | falta |
+| `assets/img/campanhas/selecao-brasileira/` | ARQUIVO → Seleção Brasileira — `01.jpg` a `06.jpg` | falta |
+| `assets/img/studio/` | O STUDIO — `01.jpg` a `05.jpg` | falta |
 
 ### Ponto focal das fotos de fundo
 
