@@ -219,9 +219,43 @@ window.RA2 = {
       title: "DAYLIGHT",
       year: "SS26",
       theme: "dark",
-      /* TODO: texto e fotos */
+      /* TODO: texto do lookbook */
       lede: "",
-      pieces: grade6("lookbook/daylight")
+      /* 30 fotos, na ordem dos arquivos originais (251205_PB_RA2_2283 → 3624).
+         Os closes e editoriais P&B ocupam mais colunas para quebrar o ritmo
+         dos looks de corpo inteiro no fundo areia. */
+      pieces: [
+        { img: "assets/img/lookbook/daylight/01.jpg", col: 1 , span: 5, top: 0 , ratio: "1200/1601" },  /* 2283 */
+        { img: "assets/img/lookbook/daylight/02.jpg", col: 8 , span: 3, top: 16, ratio: "1200/1690" },  /* 2288 */
+        { img: "assets/img/lookbook/daylight/03.jpg", col: 2 , span: 3, top: 4 , ratio: "1200/1666" },  /* 2435 */
+        { img: "assets/img/lookbook/daylight/04.jpg", col: 7 , span: 5, top: 10, ratio: "1200/1500" },  /* 2473 */
+        { img: "assets/img/lookbook/daylight/05.jpg", col: 1 , span: 4, top: 6 , ratio: "1200/1669" },  /* 2490 */
+        { img: "assets/img/lookbook/daylight/06.jpg", col: 6 , span: 3, top: 0 , ratio: "1200/1678" },  /* 2521 */
+        { img: "assets/img/lookbook/daylight/07.jpg", col: 10, span: 3, top: 18, ratio: "1200/1689" },  /* 2567 */
+        { img: "assets/img/lookbook/daylight/08.jpg", col: 2 , span: 5, top: 8 , ratio: "1200/1500" },  /* 2589 */
+        { img: "assets/img/lookbook/daylight/09.jpg", col: 9 , span: 3, top: 0 , ratio: "1200/1647" },  /* 2620 */
+        { img: "assets/img/lookbook/daylight/10.jpg", col: 1 , span: 3, top: 14, ratio: "1200/1674" },  /* 2736 */
+        { img: "assets/img/lookbook/daylight/11.jpg", col: 5 , span: 3, top: 2 , ratio: "1200/1677" },  /* 2767 */
+        { img: "assets/img/lookbook/daylight/12.jpg", col: 9 , span: 4, top: 10, ratio: "1200/1637" },  /* 2817 */
+        { img: "assets/img/lookbook/daylight/13.jpg", col: 2 , span: 3, top: 0 , ratio: "1200/1681" },  /* 2872 */
+        { img: "assets/img/lookbook/daylight/14.jpg", col: 6 , span: 3, top: 16, ratio: "1200/1662" },  /* 3004 */
+        { img: "assets/img/lookbook/daylight/15.jpg", col: 10, span: 3, top: 4 , ratio: "1200/1701" },  /* 3011 */
+        { img: "assets/img/lookbook/daylight/16.jpg", col: 1 , span: 4, top: 10, ratio: "1200/1670" },  /* 3048 */
+        { img: "assets/img/lookbook/daylight/17.jpg", col: 6 , span: 3, top: 0 , ratio: "1200/1677" },  /* 3087 */
+        { img: "assets/img/lookbook/daylight/18.jpg", col: 10, span: 3, top: 14, ratio: "1200/1656" },  /* 3128 */
+        { img: "assets/img/lookbook/daylight/19.jpg", col: 2 , span: 3, top: 4 , ratio: "1200/1668" },  /* 3240 */
+        { img: "assets/img/lookbook/daylight/20.jpg", col: 6 , span: 3, top: 12, ratio: "1200/1681" },  /* 3309 */
+        { img: "assets/img/lookbook/daylight/21.jpg", col: 1 , span: 5, top: 8 , ratio: "1200/1500" },  /* 3376 */
+        { img: "assets/img/lookbook/daylight/22.jpg", col: 8 , span: 4, top: 0 , ratio: "1200/1651" },  /* 3377 */
+        { img: "assets/img/lookbook/daylight/23.jpg", col: 2 , span: 5, top: 6 , ratio: "1200/1500" },  /* 3378 */
+        { img: "assets/img/lookbook/daylight/24.jpg", col: 9 , span: 3, top: 16, ratio: "1200/1629" },  /* 3472 */
+        { img: "assets/img/lookbook/daylight/25.jpg", col: 1 , span: 5, top: 2 , ratio: "1200/1500" },  /* 3504 */
+        { img: "assets/img/lookbook/daylight/26.jpg", col: 7 , span: 5, top: 14, ratio: "1200/1500" },  /* 3531 */
+        { img: "assets/img/lookbook/daylight/27.jpg", col: 2 , span: 3, top: 6 , ratio: "1200/1685" },  /* 3550 */
+        { img: "assets/img/lookbook/daylight/28.jpg", col: 6 , span: 3, top: 0 , ratio: "1200/1667" },  /* 3562 */
+        { img: "assets/img/lookbook/daylight/29.jpg", col: 1 , span: 5, top: 10, ratio: "1200/1594" },  /* 3615 */
+        { img: "assets/img/lookbook/daylight/30.jpg", col: 8 , span: 4, top: 2 , ratio: "1200/1629" }  /* 3624 */
+      ]
     },
     {
       slug: "shadows",
