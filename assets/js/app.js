@@ -29,6 +29,8 @@
 
   /* legendas da interface */
   var UI = {
+    heroListen: { pt: "OUVIR",              en: "LISTEN" },
+    heroMute:   { pt: "SILENCIAR",          en: "MUTE" },
     navStudio:  { pt: "O STUDIO",           en: "THE STUDIO" },
     navContact: { pt: "CONTATO",            en: "CONTACT" },
     audioOff:  { pt: "SOM DESLIGADO",       en: "AUDIO OFF" },
@@ -301,6 +303,67 @@
     });
   }
 
+  /* ---------------- vídeo de abertura (hero) ---------------- */
+
+  /* Vídeo em tela cheia no topo de uma página. Toca sozinho, em loop e
+     sem som (navegadores só permitem autoplay mudo); o botão OUVIR liga
+     o áudio do filme e desliga a trilha ambiente do site. */
+  function heroHTML(h) {
+    if (!h) return "";
+    return (
+      '<div class="hero">' +
+        '<video class="hero-video" muted loop playsinline preload="auto"' +
+        ' poster="' + esc(h.poster) + '"' +
+        ' data-src="' + esc(h.video) + '"' +
+        ' data-src-mobile="' + esc(h.videoMobile || h.video) + '"></video>' +
+        '<button type="button" class="util hero-sound">' + esc(t(UI.heroListen)) + "</button>" +
+      "</div>"
+    );
+  }
+
+  function wireHero(root) {
+    var hero = root.querySelector(".hero");
+    if (!hero) return;
+    var video = hero.querySelector("video");
+    var btn = hero.querySelector(".hero-sound");
+
+    /* celular recebe a versão mais leve */
+    var small = window.matchMedia("(max-width: 800px)").matches;
+    video.src = small ? video.dataset.srcMobile : video.dataset.src;
+
+    /* Só mostra os controles do player se o navegador bloquear o autoplay
+       de verdade (ex.: iPhone em modo de pouca energia). Aba em segundo
+       plano também recusa o play; nesse caso tenta de novo ao voltar. */
+    function tryPlay() {
+      video.play().catch(function (e) {
+        if (e && e.name === "NotAllowedError") video.controls = true;
+      });
+    }
+
+    var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm) {
+      video.controls = true;
+    } else {
+      tryPlay();
+      document.addEventListener("visibilitychange", function onVis() {
+        if (!document.body.contains(video)) {
+          document.removeEventListener("visibilitychange", onVis);
+          return;
+        }
+        if (document.visibilityState === "visible" && video.paused && !video.controls) tryPlay();
+      });
+    }
+
+    btn.addEventListener("click", function () {
+      video.muted = !video.muted;
+      if (!video.muted) {
+        if (video.paused) video.play().catch(function () {});
+        if (!audio.paused) fadeTo(0, function () { audio.pause(); syncAudioLabel(); });
+      }
+      btn.textContent = t(video.muted ? UI.heroListen : UI.heroMute);
+    });
+  }
+
   /* ---------------- views ---------------- */
 
   function entryPage(entry) {
@@ -312,7 +375,8 @@
     var year = t(entry.year);
 
     return (
-      '<section class="page">' +
+      heroHTML(entry.hero) +
+      '<section class="page' + (entry.hero ? " page--after-hero" : "") + '">' +
         '<div class="page-head">' +
           '<h1 class="page-title">' + esc(t(entry.title)) + "</h1>" +
           (lede ? '<p class="page-lede">' + esc(lede) + "</p>" : "") +
@@ -430,6 +494,7 @@
     setTimeout(function () {
       view.innerHTML = html;
       wireImages(view);
+      wireHero(view);
       window.scrollTo(0, 0);
       syncNav(section, slug);
       requestAnimationFrame(function () { view.classList.add("is-ready"); });
@@ -493,6 +558,14 @@
     if (audioBroken) return;
 
     if (audio.paused) {
+      /* a trilha do site e o som do filme não tocam juntos */
+      document.querySelectorAll(".hero-video").forEach(function (v) {
+        if (!v.muted) {
+          v.muted = true;
+          var b = v.parentNode.querySelector(".hero-sound");
+          if (b) b.textContent = t(UI.heroListen);
+        }
+      });
       audio.volume = 0;
       audio.play().then(function () {
         fadeTo(0.45);

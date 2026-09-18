@@ -299,6 +299,13 @@ window.RA2 = {
       title: { pt: "POLO CAMPANHA", en: "POLO CAMPAIGN" },
       year: "",
       theme: "dark",
+      /* vídeo de abertura, em tela cheia no topo da página.
+         Original: arquivos/campanha polo/MP4 - hero_wide - v3.mp4 */
+      hero: {
+        video: "assets/video/polo-campanha-1080.mp4",
+        videoMobile: "assets/video/polo-campanha-720.mp4",
+        poster: "assets/video/polo-campanha-poster.jpg"
+      },
       /* TODO: texto da campanha */
       lede: "",
       /* 19 fotos, na ordem dos arquivos originais (2026-03-08 RICARDO ALMEIDA 1155 → 3524).
