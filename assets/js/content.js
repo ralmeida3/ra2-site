@@ -184,9 +184,35 @@ window.RA2 = {
       title: "POLO",
       year: "AW26",
       theme: "dark",
-      /* TODO: texto e fotos */
+      /* TODO: texto do lookbook */
       lede: "",
-      pieces: grade6("lookbook/polo")
+      /* 22 fotos, na ordem dos arquivos originais (260428_PB_RA2_0115 → 1132).
+         As editoriais — P&B (0286, 0328, 0632) e fundo marrom (0400, 0725, 0865) —
+         ocupam mais colunas para quebrar o ritmo dos looks de corpo inteiro. */
+      pieces: [
+        { img: "assets/img/lookbook/polo/01.jpg", col: 2 , span: 3, top: 0 , ratio: "1200/1500" },  /* 0115 */
+        { img: "assets/img/lookbook/polo/02.jpg", col: 6 , span: 3, top: 14, ratio: "1200/1600" },  /* 0177 */
+        { img: "assets/img/lookbook/polo/03.jpg", col: 10, span: 3, top: 4 , ratio: "1200/1500" },  /* 0282 */
+        { img: "assets/img/lookbook/polo/04.jpg", col: 1 , span: 5, top: 8 , ratio: "1200/1500" },  /* 0286 */
+        { img: "assets/img/lookbook/polo/05.jpg", col: 8 , span: 3, top: 20, ratio: "1200/1500" },  /* 0317 */
+        { img: "assets/img/lookbook/polo/06.jpg", col: 2 , span: 5, top: 2 , ratio: "1200/1500" },  /* 0328 */
+        { img: "assets/img/lookbook/polo/07.jpg", col: 8 , span: 4, top: 16, ratio: "1200/1500" },  /* 0389 */
+        { img: "assets/img/lookbook/polo/08.jpg", col: 1 , span: 5, top: 6 , ratio: "1200/1500" },  /* 0400 */
+        { img: "assets/img/lookbook/polo/09.jpg", col: 7 , span: 3, top: 0 , ratio: "1200/1500" },  /* 0415 */
+        { img: "assets/img/lookbook/polo/10.jpg", col: 10, span: 3, top: 18, ratio: "1200/1500" },  /* 0495 */
+        { img: "assets/img/lookbook/polo/11.jpg", col: 2 , span: 3, top: 4 , ratio: "1200/1500" },  /* 0538 */
+        { img: "assets/img/lookbook/polo/12.jpg", col: 6 , span: 4, top: 12, ratio: "1200/1500" },  /* 0609 */
+        { img: "assets/img/lookbook/polo/13.jpg", col: 1 , span: 5, top: 0 , ratio: "1200/1500" },  /* 0632 */
+        { img: "assets/img/lookbook/polo/14.jpg", col: 8 , span: 5, top: 16, ratio: "1200/1500" },  /* 0725 */
+        { img: "assets/img/lookbook/polo/15.jpg", col: 1 , span: 3, top: 6 , ratio: "1200/1500" },  /* 0784 */
+        { img: "assets/img/lookbook/polo/16.jpg", col: 4 , span: 3, top: 0 , ratio: "1200/1500" },  /* 0838 */
+        { img: "assets/img/lookbook/polo/17.jpg", col: 8 , span: 5, top: 14, ratio: "1200/1500" },  /* 0865 */
+        { img: "assets/img/lookbook/polo/18.jpg", col: 2 , span: 3, top: 4 , ratio: "1200/1500" },  /* 0880 */
+        { img: "assets/img/lookbook/polo/19.jpg", col: 6 , span: 3, top: 12, ratio: "1200/1500" },  /* 0936 */
+        { img: "assets/img/lookbook/polo/20.jpg", col: 10, span: 3, top: 2 , ratio: "1200/1500" },  /* 1024 */
+        { img: "assets/img/lookbook/polo/21.jpg", col: 3 , span: 4, top: 8 , ratio: "1200/1500" },  /* 1077 */
+        { img: "assets/img/lookbook/polo/22.jpg", col: 8 , span: 4, top: 0 , ratio: "1200/1500" }  /* 1132 */
+      ]
     },
     {
       slug: "daylight",
