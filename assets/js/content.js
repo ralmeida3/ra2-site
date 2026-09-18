@@ -299,9 +299,31 @@ window.RA2 = {
       title: { pt: "POLO CAMPANHA", en: "POLO CAMPAIGN" },
       year: "",
       theme: "dark",
-      /* TODO: texto e fotos */
+      /* TODO: texto da campanha */
       lede: "",
-      pieces: grade6("campanhas/polo")
+      /* 19 fotos, na ordem dos arquivos originais (2026-03-08 RICARDO ALMEIDA 1155 → 3524).
+         As horizontais ocupam 6–7 colunas; 1515 e 1516 ficam lado a lado, como díptico. */
+      pieces: [
+        { img: "assets/img/campanhas/polo/01.jpg", col: 2 , span: 4, top: 0 , ratio: "1200/1583" },  /* 1155 */
+        { img: "assets/img/campanhas/polo/02.jpg", col: 8 , span: 4, top: 14, ratio: "1200/1799" },  /* 1271 */
+        { img: "assets/img/campanhas/polo/03.jpg", col: 4 , span: 5, top: 4 , ratio: "1200/1799" },  /* 1407 */
+        { img: "assets/img/campanhas/polo/04.jpg", col: 1 , span: 6, top: 6 , ratio: "1600/1067" },  /* 1515 */
+        { img: "assets/img/campanhas/polo/05.jpg", col: 7 , span: 6, top: 6 , ratio: "1600/1067" },  /* 1516 */
+        { img: "assets/img/campanhas/polo/06.jpg", col: 2 , span: 3, top: 10, ratio: "1200/1799" },  /* 1725 */
+        { img: "assets/img/campanhas/polo/07.jpg", col: 6 , span: 3, top: 0 , ratio: "1200/1799" },  /* 1913 */
+        { img: "assets/img/campanhas/polo/08.jpg", col: 10, span: 3, top: 16, ratio: "1200/1799" },  /* 1977 */
+        { img: "assets/img/campanhas/polo/09.jpg", col: 1 , span: 4, top: 4 , ratio: "1200/1645" },  /* 2001 */
+        { img: "assets/img/campanhas/polo/10.jpg", col: 6 , span: 3, top: 14, ratio: "1200/1799" },  /* 2061 */
+        { img: "assets/img/campanhas/polo/11.jpg", col: 10, span: 3, top: 2 , ratio: "1200/1799" },  /* 2087 */
+        { img: "assets/img/campanhas/polo/12.jpg", col: 1 , span: 4, top: 8 , ratio: "1200/1799" },  /* 2162 */
+        { img: "assets/img/campanhas/polo/13.jpg", col: 6 , span: 7, top: 0 , ratio: "1600/1067" },  /* 2302 */
+        { img: "assets/img/campanhas/polo/14.jpg", col: 4 , span: 6, top: 10, ratio: "1600/1067" },  /* 2646 */
+        { img: "assets/img/campanhas/polo/15.jpg", col: 1 , span: 7, top: 6 , ratio: "1600/1067" },  /* 2759 */
+        { img: "assets/img/campanhas/polo/16.jpg", col: 9 , span: 4, top: 0 , ratio: "1200/1799" },  /* 3073 */
+        { img: "assets/img/campanhas/polo/17.jpg", col: 1 , span: 6, top: 4 , ratio: "1600/1067" },  /* 3399 */
+        { img: "assets/img/campanhas/polo/18.jpg", col: 8 , span: 4, top: 14, ratio: "1200/1689" },  /* 3514 */
+        { img: "assets/img/campanhas/polo/19.jpg", col: 4 , span: 4, top: 6 , ratio: "1200/1799" }  /* 3524 */
+      ]
     },
     {
       slug: "selecao-brasileira",
