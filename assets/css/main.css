@@ -292,12 +292,24 @@ body[data-stage="off"].is-nav-hover .view { background: rgba(255, 36, 1, 0.045);
 
 /* --- vídeo de abertura (hero) ----------------------------------- */
 
+/* No alto da página, na mesma grade de 12 colunas do título,
+   deixando livre a coluna do menu fixo. */
+.hero-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 1.5vw;
+  margin-bottom: 12vh;
+}
+
 .hero {
+  grid-column: 3 / -1;
   position: relative;
-  height: 100dvh;
+  aspect-ratio: 16 / 9;
   background: var(--black);
   overflow: hidden;
+  cursor: pointer;
 }
+.hero.is-watching { cursor: auto; }
 
 .hero-video {
   display: block;
@@ -306,36 +318,22 @@ body[data-stage="off"].is-nav-hover .view { background: rgba(255, 36, 1, 0.045);
   object-fit: cover;
 }
 
-/* escurece o alto (menu e controles) e dissolve a base no preto da página */
-.hero::after {
-  content: "";
+.hero-play {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 26%),
-    linear-gradient(0deg, var(--black) 0%, transparent 22%);
-}
-
-.hero-sound {
-  position: absolute;
-  right: var(--pad-x);
-  bottom: var(--pad-y);
+  left: 1.4em;
+  bottom: 1.2em;
   z-index: 2;
   font-size: var(--ui-size);
   letter-spacing: var(--ui-track);
   text-transform: uppercase;
   text-shadow: 0 0 10px rgba(0,0,0,0.9);
 }
+.hero.is-watching .hero-play { display: none; }
 
-/* depois do vídeo, o título não precisa mais fugir do menu fixo */
-.page.page--after-hero { padding-top: 10vh; }
-
-/* tela em pé (celular): o filme aparece inteiro, sem corte */
-@media (max-aspect-ratio: 1/1) {
-  /* começa abaixo do menu fixo, mesmo com a lista da seção aberta */
-  .hero { height: auto; aspect-ratio: 16 / 9; margin-top: max(30vh, 240px); }
-  .hero-video { object-fit: contain; }
+/* celular: ocupa a largura toda, abaixo do menu fixo (mais longo aqui) */
+@media (max-width: 800px) {
+  .hero-row { margin-top: 6vh; margin-bottom: 8vh; }
+  .hero { grid-column: 1 / -1; }
 }
 
 .page-head {

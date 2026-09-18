@@ -29,8 +29,7 @@
 
   /* legendas da interface */
   var UI = {
-    heroListen: { pt: "OUVIR",              en: "LISTEN" },
-    heroMute:   { pt: "SILENCIAR",          en: "MUTE" },
+    heroWatch:  { pt: "▶ ASSISTIR COM SOM", en: "▶ WATCH WITH SOUND" },
     navStudio:  { pt: "O STUDIO",           en: "THE STUDIO" },
     navContact: { pt: "CONTATO",            en: "CONTACT" },
     audioOff:  { pt: "SOM DESLIGADO",       en: "AUDIO OFF" },
@@ -305,19 +304,21 @@
 
   /* ---------------- vídeo de abertura (hero) ---------------- */
 
-  /* Vídeo em tela cheia no topo de uma página. Toca sozinho, em loop e
-     sem som (navegadores só permitem autoplay mudo); o botão OUVIR liga
-     o áudio do filme e desliga a trilha ambiente do site. */
+  /* Vídeo no alto de uma página. Dois modos:
+     - prévia: toca sozinho, mudo e em loop (navegadores só permitem
+       autoplay sem som);
+     - assistir: ao clicar, recomeça do início com o som original e os
+       controles do player. Ao terminar, volta para a prévia. */
   function heroHTML(h) {
     if (!h) return "";
     return (
-      '<div class="hero">' +
+      '<div class="hero-row"><div class="hero">' +
         '<video class="hero-video" muted loop playsinline preload="auto"' +
         ' poster="' + esc(h.poster) + '"' +
         ' data-src="' + esc(h.video) + '"' +
         ' data-src-mobile="' + esc(h.videoMobile || h.video) + '"></video>' +
-        '<button type="button" class="util hero-sound">' + esc(t(UI.heroListen)) + "</button>" +
-      "</div>"
+        '<button type="button" class="util hero-play">' + esc(t(UI.heroWatch)) + "</button>" +
+      "</div></div>"
     );
   }
 
@@ -325,42 +326,54 @@
     var hero = root.querySelector(".hero");
     if (!hero) return;
     var video = hero.querySelector("video");
-    var btn = hero.querySelector(".hero-sound");
+    var btn = hero.querySelector(".hero-play");
+    var watching = false;
 
     /* celular recebe a versão mais leve */
     var small = window.matchMedia("(max-width: 800px)").matches;
     video.src = small ? video.dataset.srcMobile : video.dataset.src;
 
-    /* Só mostra os controles do player se o navegador bloquear o autoplay
-       de verdade (ex.: iPhone em modo de pouca energia). Aba em segundo
-       plano também recusa o play; nesse caso tenta de novo ao voltar. */
-    function tryPlay() {
-      video.play().catch(function (e) {
-        if (e && e.name === "NotAllowedError") video.controls = true;
-      });
-    }
-
+    /* quem pede menos movimento vê só o quadro parado e o botão */
     var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (calm) {
-      video.controls = true;
-    } else {
-      tryPlay();
-      document.addEventListener("visibilitychange", function onVis() {
-        if (!document.body.contains(video)) {
-          document.removeEventListener("visibilitychange", onVis);
-          return;
-        }
-        if (document.visibilityState === "visible" && video.paused && !video.controls) tryPlay();
-      });
+
+    /* Se o navegador bloquear o autoplay (aba em segundo plano, iPhone em
+       modo de pouca energia), fica o quadro parado com o botão de play. */
+    function playPreview() {
+      if (!calm) video.play().catch(function () {});
     }
 
-    btn.addEventListener("click", function () {
-      video.muted = !video.muted;
-      if (!video.muted) {
-        if (video.paused) video.play().catch(function () {});
-        if (!audio.paused) fadeTo(0, function () { audio.pause(); syncAudioLabel(); });
+    function preview() {
+      watching = false;
+      hero.classList.remove("is-watching");
+      video.controls = false;
+      video.loop = true;
+      video.muted = true;
+      playPreview();
+    }
+
+    function watch() {
+      if (watching) return;
+      watching = true;
+      hero.classList.add("is-watching");
+      if (!audio.paused) fadeTo(0, function () { audio.pause(); syncAudioLabel(); });
+      video.loop = false;
+      video.muted = false;
+      video.controls = true;
+      video.currentTime = 0;
+      video.play().catch(function () {});
+    }
+
+    btn.addEventListener("click", function (e) { e.stopPropagation(); watch(); });
+    hero.addEventListener("click", function () { if (!watching) watch(); });
+    video.addEventListener("ended", preview);
+
+    playPreview();
+    document.addEventListener("visibilitychange", function onVis() {
+      if (!document.body.contains(video)) {
+        document.removeEventListener("visibilitychange", onVis);
+        return;
       }
-      btn.textContent = t(video.muted ? UI.heroListen : UI.heroMute);
+      if (document.visibilityState === "visible" && !watching && video.paused) playPreview();
     });
   }
 
@@ -375,8 +388,8 @@
     var year = t(entry.year);
 
     return (
-      heroHTML(entry.hero) +
-      '<section class="page' + (entry.hero ? " page--after-hero" : "") + '">' +
+      '<section class="page">' +
+        heroHTML(entry.hero) +
         '<div class="page-head">' +
           '<h1 class="page-title">' + esc(t(entry.title)) + "</h1>" +
           (lede ? '<p class="page-lede">' + esc(lede) + "</p>" : "") +
@@ -559,13 +572,7 @@
 
     if (audio.paused) {
       /* a trilha do site e o som do filme não tocam juntos */
-      document.querySelectorAll(".hero-video").forEach(function (v) {
-        if (!v.muted) {
-          v.muted = true;
-          var b = v.parentNode.querySelector(".hero-sound");
-          if (b) b.textContent = t(UI.heroListen);
-        }
-      });
+      document.querySelectorAll(".hero-video").forEach(function (v) { v.muted = true; });
       audio.volume = 0;
       audio.play().then(function () {
         fadeTo(0.45);
